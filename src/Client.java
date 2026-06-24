@@ -13,13 +13,16 @@ public class Client {
         InetAddress address = InetAddress.getLocalHost();
         Socket socket = new Socket(address,port );
 
-        PrintWriter toServer = new PrintWriter(socket.getOutputStream());
+        PrintWriter toServer = new PrintWriter(socket.getOutputStream(),true);
         BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         toServer.println("Hello from client");
-
         String response = fromServer.readLine();
-        System.out.println(response);
+        System.out.println("Response from server: " + response);
+
+        toServer.close();
+        fromServer.close();
+        socket.close();
     }
 
     public static void main(String[] args) {
